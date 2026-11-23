@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MangoCrave – Dessert Mango Sago Segar</title>
+<meta name="description" content="Dessert Mango Sago kekinian berbahan 100% mangga segar. Mulai Rp15.000/cup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{mango:'#FFB703',orange:'#FB8500',leaf:'#2A9D8F',cream:'#FFFDF7',ink:'#3a2a12'},fontFamily:{display:['Fraunces','Georgia','serif'],sans:['"Plus Jakarta Sans"','system-ui','sans-serif']}}}}
+</script>
+<style>
+body{background:#FFFDF7;color:#3a2a12}
+:focus-visible{outline:3px solid #2A9D8F;outline-offset:2px}
+.cup-float{animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+@media (prefers-reduced-motion:reduce){.cup-float{animation:none}html{scroll-behavior:auto}}
+.pill input:checked+span{background:#2A9D8F;color:#fff;border-color:#2A9D8F}
+.opt input:checked+div{border-color:#FB8500;background:#FFF3DC}
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-mango/30">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#beranda" class="flex items-center gap-2 font-display font-extrabold text-2xl">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5c7 0 12 5 12 12s-5 11-12 11S4 24 4 17 9 5 16 5z" fill="#FFB703"/><path d="M16 5c4 0 8 3 9 7-4-1-8 1-11 5-2-5-1-9 2-12z" fill="#FB8500" opacity=".8"/><path d="M17 5c0-2 2-3 5-3-1 2-2 3-5 3z" fill="#2A9D8F"/></svg>
+      Mango<span class="text-orange">Crave</span>
+    </a>
+    <ul class="hidden lg:flex items-center gap-7 text-sm font-semibold">
+      <li><a class="hover:text-orange" href="#beranda">Beranda</a></li>
+      <li><a class="hover:text-orange" href="#keunggulan">Keunggulan</a></li>
+      <li><a class="hover:text-orange" href="#menu">Menu &amp; Harga</a></li>
+      <li><a class="hover:text-orange" href="#testimoni">Testimoni</a></li>
+      <li><a class="hover:text-orange" href="#cara-pesan">Cara Pesan</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <a href="#pesan" class="bg-orange text-white font-bold text-sm px-5 py-2.5 rounded-full hover:bg-orange/90 transition">Pesan Sekarang</a>
+      <button id="burger" class="lg:hidden p-2" aria-label="Buka menu" aria-expanded="false">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-mango/30 bg-cream">
+    <ul class="px-4 py-3 space-y-1 font-semibold">
+      <li><a class="block py-2" href="#beranda">Beranda</a></li>
+      <li><a class="block py-2" href="#keunggulan">Keunggulan</a></li>
+      <li><a class="block py-2" href="#menu">Menu &amp; Harga</a></li>
+      <li><a class="block py-2" href="#testimoni">Testimoni</a></li>
+      <li><a class="block py-2" href="#cara-pesan">Cara Pesan</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="beranda" class="relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 w-[28rem] h-[28rem] rounded-full bg-mango/40 blur-3xl"></div>
+  <div class="absolute bottom-0 -left-20 w-72 h-72 rounded-full bg-leaf/15 blur-3xl"></div>
+  <div class="relative max-w-6xl mx-auto px-4 py-14 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.05]">Segarnya Mangga Asli, Manisnya Pas Bikin Mood Balik Lagi!</h1>
+      <p class="mt-5 text-lg text-ink/80 max-w-xl leading-relaxed">Dessert Mango Sago kekinian berbahan 100% buah mangga segar pilihan, sagu mutiara kenyal, dan kuah creamy gurih yang tidak bikin enek. Praktis, higienis, dan ramah di kantong mahasiswa maupun pekerja.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#pesan" class="bg-orange text-white font-bold px-7 py-3.5 rounded-full shadow-lg shadow-orange/30 hover:-translate-y-0.5 transition">Pesan Sekarang</a>
+        <a href="#menu" class="border-2 border-leaf text-leaf font-bold px-7 py-3.5 rounded-full hover:bg-leaf hover:text-white transition">Lihat Detail Menu</a>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <div class="cup-float relative">
+        <svg viewBox="0 0 320 400" class="w-64 sm:w-80 drop-shadow-2xl" role="img" aria-label="Ilustrasi cup MangoCrave Mango Sago dengan potongan mangga melimpah">
+          <ellipse cx="160" cy="385" rx="100" ry="10" fill="#3a2a12" opacity=".12"/>
+          <path d="M60 130 L85 370 Q88 385 105 385 L215 385 Q232 385 235 370 L260 130 Z" fill="#fff" fill-opacity=".55" stroke="#2A9D8F" stroke-width="4"/>
+          <path d="M68 190 L90 365 Q92 376 105 376 L215 376 Q228 376 230 365 L252 190 Z" fill="#FFD36B"/>
+          <path d="M68 190 Q110 170 160 190 T252 190 L246 240 L74 240Z" fill="#FFB703"/>
+          <g fill="#fff" opacity=".9"><circle cx="110" cy="290" r="9"/><circle cx="145" cy="315" r="9"/><circle cx="185" cy="295" r="9"/><circle cx="165" cy="340" r="9"/><circle cx="120" cy="335" r="9"/><circle cx="205" cy="335" r="9"/></g>
+          <g><rect x="90" y="215" width="44" height="34" rx="8" fill="#FB8500" transform="rotate(-10 112 232)"/><rect x="140" y="225" width="44" height="34" rx="8" fill="#FFB703" stroke="#FB8500" stroke-width="2" transform="rotate(8 162 242)"/><rect x="184" y="212" width="40" height="32" rx="8" fill="#FB8500" transform="rotate(-6 204 228)"/></g>
+          <path d="M60 130 Q160 70 260 130 Q250 90 215 78 Q190 40 160 55 Q125 35 105 78 Q70 90 60 130Z" fill="#FFB703"/>
+          <g><rect x="95" y="62" width="46" height="36" rx="9" fill="#FB8500" transform="rotate(-14 118 80)"/><rect x="150" y="45" width="50" height="38" rx="9" fill="#FFB703" stroke="#FB8500" stroke-width="3" transform="rotate(10 175 64)"/><rect x="190" y="72" width="40" height="32" rx="8" fill="#FB8500" transform="rotate(18 210 88)"/></g>
+          <rect x="50" y="120" width="220" height="18" rx="9" fill="#2A9D8F"/>
+          <path d="M215 130 L245 20" stroke="#FB8500" stroke-width="9" stroke-linecap="round"/>
+        </svg>
+        <span class="absolute -left-4 top-10 bg-white rounded-2xl px-3 py-2 text-sm font-bold shadow-md rotate-[-6deg]">100% mangga segar</span>
+        <span class="absolute -right-2 bottom-16 bg-leaf text-white rounded-2xl px-3 py-2 text-sm font-bold shadow-md rotate-[5deg]">Mulai Rp15.000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEUNGGULAN -->
+<section id="keunggulan" class="bg-white py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl max-w-2xl">Kenapa MangoCrave?</h2>
+    <p class="mt-3 text-ink/75 max-w-2xl">Dessert manis sering bikin enek, ribet dibawa, dan mahal. Kami buat versi yang pas di lidah dan di kantong.</p>
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="rounded-3xl bg-mango/20 p-6">
+        <div class="w-12 h-12 rounded-2xl bg-mango flex items-center justify-center text-2xl">🥭</div>
+        <h3 class="mt-4 font-bold text-lg">100% Mangga Segar Asli</h3>
+        <p class="mt-2 text-sm text-ink/75 leading-relaxed">Tanpa pemanis buatan berlebih dan tanpa bahan pengawet.</p>
+      </article>
+      <article class="rounded-3xl bg-orange/15 p-6">
+        <div class="w-12 h-12 rounded-2xl bg-orange flex items-center justify-center text-2xl">🥛</div>
+        <h3 class="mt-4 font-bold text-lg">Manis Pas &amp; Creamy Gurih</h3>
+        <p class="mt-2 text-sm text-ink/75 leading-relaxed">Takaran terstandarisasi, segar di tenggorokan, tidak bikin enek.</p>
+      </article>
+      <article class="rounded-3xl bg-leaf/15 p-6">
+        <div class="w-12 h-12 rounded-2xl bg-leaf flex items-center justify-center text-2xl">🔒</div>
+        <h3 class="mt-4 font-bold text-lg">Kemasan Higienis &amp; Anti-Tumpah</h3>
+        <p class="mt-2 text-sm text-ink/75 leading-relaxed">Secure-cap cup yang aman dibawa bepergian ke kampus atau kantor.</p>
+      </article>
+      <article class="rounded-3xl bg-mango/20 p-6">
+        <div class="w-12 h-12 rounded-2xl bg-mango flex items-center justify-center text-2xl">💰</div>
+        <h3 class="mt-4 font-bold text-lg">Harga Ramah di Kantong</h3>
+        <p class="mt-2 text-sm text-ink/75 leading-relaxed">Mulai dari Rp15.000/cup dengan porsi yang mengenyangkan.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl">Menu &amp; Harga</h2>
+    <p class="mt-3 text-ink/75">Pilih tingkat kemanisan, lalu klik pesan pada menu favoritmu.</p>
+
+    <div class="mt-6 flex flex-wrap items-center gap-3" role="radiogroup" aria-label="Tingkat kemanisan">
+      <span class="font-semibold text-sm">Tingkat kemanisan:</span>
+      <label class="pill cursor-pointer"><input type="radio" name="sweetMenu" value="Less Sugar" class="sr-only"><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Less Sugar (Manis Alami Buah)</span></label>
+      <label class="pill cursor-pointer"><input type="radio" name="sweetMenu" value="Normal Sweet" class="sr-only" checked><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Normal Sweet (Pas)</span></label>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      <article class="bg-white rounded-3xl p-6 border border-mango/40 flex flex-col">
+        <div class="h-36 rounded-2xl bg-gradient-to-br from-mango to-orange flex items-center justify-center text-6xl">🥭</div>
+        <h3 class="mt-5 font-bold text-xl">MangoCrave Original <span class="text-sm font-medium text-ink/60">(200ml)</span></h3>
+        <p class="mt-2 text-sm text-ink/75 flex-1">Potongan mangga segar, sagu mutiara, jus mangga kental, kuah creamy.</p>
+        <p class="mt-4 font-display font-extrabold text-2xl text-orange">Rp15.000</p>
+        <button data-pick="Original" class="pick mt-3 bg-orange text-white font-bold rounded-full py-2.5 hover:bg-orange/90 transition">Pesan Menu Ini</button>
+      </article>
+      <article class="bg-white rounded-3xl p-6 border border-mango/40 flex flex-col">
+        <div class="h-36 rounded-2xl bg-gradient-to-br from-leaf to-mango flex items-center justify-center text-6xl">🧋</div>
+        <h3 class="mt-5 font-bold text-xl">MangoCrave Popping Boba <span class="text-sm font-medium text-ink/60">(200ml)</span></h3>
+        <p class="mt-2 text-sm text-ink/75 flex-1">Tambahan topping popping boba segar yang meletup di mulut.</p>
+        <p class="mt-4 font-display font-extrabold text-2xl text-orange">Rp18.000</p>
+        <button data-pick="Popping Boba" class="pick mt-3 bg-orange text-white font-bold rounded-full py-2.5 hover:bg-orange/90 transition">Pesan Menu Ini</button>
+      </article>
+      <article class="bg-leaf text-white rounded-3xl p-6 flex flex-col">
+        <div class="h-36 rounded-2xl bg-white/15 flex items-center justify-center text-6xl">🎉</div>
+        <h3 class="mt-5 font-bold text-xl">Paket Bulk <span class="text-sm font-medium text-white/80">(Min. 10 Cup)</span></h3>
+        <p class="mt-2 text-sm text-white/90 flex-1">Untuk acara kampus &amp; kantor. Harga spesial, dikonfirmasi admin via WhatsApp.</p>
+        <p class="mt-4 font-display font-extrabold text-2xl text-mango">Harga Spesial</p>
+        <button data-pick="Paket Bulk" class="pick mt-3 bg-white text-leaf font-bold rounded-full py-2.5 hover:bg-cream transition">Pesan Menu Ini</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni" class="bg-mango/20 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl">Kata Mereka yang Sudah Coba</h2>
+    <div class="mt-8 grid sm:grid-cols-2 gap-5 max-w-3xl">
+      <div class="bg-white rounded-3xl p-6">
+        <p class="font-display font-extrabold text-5xl text-orange">91%</p>
+        <p class="mt-1 font-semibold">Konsumen setuju rasanya pas &amp; segar</p>
+      </div>
+      <div class="bg-white rounded-3xl p-6">
+        <p class="font-display font-extrabold text-5xl text-leaf">4.7<span class="text-2xl text-ink/50">/5</span></p>
+        <p class="mt-1 font-semibold">Rating untuk tampilan &amp; kualitas</p>
+      </div>
+    </div>
+    <div class="mt-8 grid md:grid-cols-3 gap-5">
+      <figure class="bg-white rounded-3xl p-6">
+        <div class="text-mango text-lg" aria-label="5 bintang">★★★★★</div>
+        <blockquote class="mt-3 leading-relaxed">“Mangganya benar-benar terasa segar, bukan sekadar rasa. Pas banget buat teman istirahat siang di kantor.”</blockquote>
+        <figcaption class="mt-4 text-sm"><b>Karina</b> – Karyawan Swasta</figcaption>
+      </figure>
+      <figure class="bg-white rounded-3xl p-6">
+        <div class="text-mango text-lg" aria-label="5 bintang">★★★★★</div>
+        <blockquote class="mt-3 leading-relaxed">“Cup-nya nggak tumpah waktu dibawa naik motor ke kampus. Harganya juga pas buat uang saku mahasiswa.”</blockquote>
+        <figcaption class="mt-4 text-sm"><b>Raka</b> – Mahasiswa</figcaption>
+      </figure>
+      <figure class="bg-white rounded-3xl p-6">
+        <div class="text-mango text-lg" aria-label="5 bintang">★★★★★</div>
+        <blockquote class="mt-3 leading-relaxed">“Kuahnya creamy tapi nggak bikin enek, sagunya kenyal. Salah satu mango sago terenak yang pernah aku coba.”</blockquote>
+        <figcaption class="mt-4 text-sm"><b>Dinda</b> – Pecinta Dessert</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CARA PESAN + FORM -->
+<section id="cara-pesan" class="py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-5 gap-10">
+    <div class="lg:col-span-2">
+      <h2 class="font-display font-extrabold text-3xl md:text-4xl">Cara Pesan</h2>
+      <ol class="mt-6 space-y-5">
+        <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-orange text-white font-bold flex items-center justify-center">1</span><p><b>Isi formulir</b><br><span class="text-ink/75 text-sm">Pilih menu, jumlah, kemanisan, dan titik antar.</span></p></li>
+        <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-orange text-white font-bold flex items-center justify-center">2</span><p><b>Tunggu konfirmasi</b><br><span class="text-ink/75 text-sm">Admin menghubungi WhatsApp kamu untuk konfirmasi.</span></p></li>
+        <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-orange text-white font-bold flex items-center justify-center">3</span><p><b>Nikmati</b><br><span class="text-ink/75 text-sm">Pesanan diantar COD atau GoSend/GrabExpress.</span></p></li>
+      </ol>
+    </div>
+
+    <div id="pesan" class="lg:col-span-3 bg-white rounded-3xl p-6 md:p-8 border border-mango/40 shadow-xl shadow-mango/10 scroll-mt-24">
+      <h3 class="font-display font-extrabold text-2xl">Form Pemesanan</h3>
+      <form id="orderForm" class="mt-5 space-y-5" novalidate>
+        <input type="hidden" name="_subject" value="Pesanan Baru MangoCrave!">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="nama" class="block text-sm font-semibold mb-1">Nama Pemesan <span class="text-orange">*</span></label>
+            <input id="nama" name="Nama Pemesan" required class="w-full rounded-xl border border-ink/20 px-4 py-3 focus:border-leaf focus:outline-none" autocomplete="name">
+          </div>
+          <div>
+            <label for="wa" class="block text-sm font-semibold mb-1">Nomor WhatsApp <span class="text-orange">*</span></label>
+            <input id="wa" name="Nomor WhatsApp" type="tel" inputmode="tel" required placeholder="08xxxxxxxxxx" class="w-full rounded-xl border border-ink/20 px-4 py-3 focus:border-leaf focus:outline-none" autocomplete="tel">
+          </div>
+        </div>
+
+        <div>
+          <label for="varian" class="block text-sm font-semibold mb-1">Varian Menu</label>
+          <select id="varian" name="Varian Menu" class="w-full rounded-xl border border-ink/20 px-4 py-3 bg-white focus:border-leaf focus:outline-none">
+            <option value="MangoCrave Original" data-price="15000">MangoCrave Original – Rp15.000</option>
+            <option value="MangoCrave Popping Boba" data-price="18000">MangoCrave Popping Boba – Rp18.000</option>
+            <option value="Paket Bulk" data-price="0">Paket Bulk (Min. 10 Cup) – Harga Spesial</option>
+          </select>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="jumlah" class="block text-sm font-semibold mb-1">Jumlah Cup</label>
+            <input id="jumlah" name="Jumlah Cup" type="number" min="1" value="1" required class="w-full rounded-xl border border-ink/20 px-4 py-3 focus:border-leaf focus:outline-none">
+          </div>
+          <div>
+            <span class="block text-sm font-semibold mb-1">Estimasi Total Harga</span>
+            <div id="totalBox" class="rounded-xl bg-mango/25 px-4 py-3 font-display font-extrabold text-xl text-orange" aria-live="polite">Rp15.000</div>
+            <input type="hidden" name="Estimasi Total Harga" id="totalInput" value="Rp15.000">
+          </div>
+        </div>
+        <p id="bulkNote" class="hidden text-sm text-leaf font-semibold">Paket Bulk minimal 10 cup. Harga spesial akan dikonfirmasi admin via WhatsApp.</p>
+
+        <fieldset>
+          <legend class="block text-sm font-semibold mb-2">Tingkat Kemanisan</legend>
+          <div class="flex flex-wrap gap-3">
+            <label class="pill cursor-pointer"><input type="radio" name="Tingkat Kemanisan" value="Less Sugar" class="sr-only"><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Less Sugar</span></label>
+            <label class="pill cursor-pointer"><input type="radio" name="Tingkat Kemanisan" value="Normal Sweet" class="sr-only" checked><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Normal Sweet</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="block text-sm font-semibold mb-2">Metode Pengiriman</legend>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="opt cursor-pointer"><input type="radio" name="Metode Pengiriman" value="COD Area Kampus/Sekitar" class="sr-only" checked><div class="border-2 border-ink/15 rounded-xl p-3 text-sm transition"><b>COD</b><br>Area kampus / sekitar</div></label>
+            <label class="opt cursor-pointer"><input type="radio" name="Metode Pengiriman" value="Pengiriman Instan GoSend/GrabExpress" class="sr-only"><div class="border-2 border-ink/15 rounded-xl p-3 text-sm transition"><b>Pengiriman Instan</b><br>GoSend / GrabExpress</div></label>
+          </div>
+        </fieldset>
+
+        <div>
+          <label for="alamat" class="block text-sm font-semibold mb-1">Alamat Lengkap / Titik Temu</label>
+          <textarea id="alamat" name="Alamat" rows="3" required class="w-full rounded-xl border border-ink/20 px-4 py-3 focus:border-leaf focus:outline-none"></textarea>
+        </div>
+
+        <p id="formError" class="hidden text-sm font-semibold text-red-700" role="alert"></p>
+
+        <button id="submitBtn" type="submit" class="w-full bg-orange text-white font-bold rounded-full py-4 text-lg hover:bg-orange/90 transition disabled:opacity-70 flex items-center justify-center gap-2">
+          <svg id="spin" class="hidden animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="9" opacity=".3"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
+          <span id="btnText">Buat Pesanan Sekarang</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-ink text-cream py-12">
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm">
+    <div>
+      <p class="font-display font-extrabold text-2xl">Mango<span class="text-mango">Crave</span></p>
+      <p class="mt-3 text-cream/75 leading-relaxed">MangoCrave by Mango Squad (Politeknik LP3I Jakarta). Dessert Mango Sago segar untuk mahasiswa dan pekerja.</p>
+    </div>
+    <div>
+      <p class="font-bold mb-3">Kontak Admin</p>
+      <p><a class="hover:text-mango" href="https://wa.me/6285880335403">WhatsApp 0858-8033-5403</a></p>
+      <p class="mt-1"><a class="hover:text-mango" href="mailto:muhamaddikri097@gmail.com">muhamaddikri097@gmail.com</a></p>
+    </div>
+    <div>
+      <p class="font-bold mb-3">Ikuti &amp; Jam Operasional</p>
+      <p><a class="hover:text-mango" href="https://instagram.com/mangocrave.id" target="_blank" rel="noopener">Instagram @mangocrave.id</a></p>
+      <p class="mt-1"><a class="hover:text-mango" href="https://tiktok.com/@mangocrave.id" target="_blank" rel="noopener">TikTok @mangocrave.id</a></p>
+      <p class="mt-3 text-cream/75">Pre-Order &amp; Delivery: Senin–Sabtu, 09.00–20.00 WIB</p>
+    </div>
+  </div>
+  <p class="max-w-6xl mx-auto px-4 mt-8 text-xs text-cream/50">© 2026 MangoCrave. Semua hak dilindungi.</p>
+</footer>
+
+<!-- MODAL -->
+<div id="modal" class="hidden fixed inset-0 z-50 bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="bg-cream rounded-3xl max-w-md w-full p-7 text-center shadow-2xl">
+    <div class="mx-auto w-16 h-16 rounded-full bg-leaf flex items-center justify-center">
+      <svg width="34" height="34" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18l8 8 14-16"/></svg>
+    </div>
+    <h3 id="modalTitle" class="mt-4 font-display font-extrabold text-2xl">Pesanan Berhasil Diterima!</h3>
+    <p class="mt-2 text-sm text-ink/80 leading-relaxed">Rincian pesanan Anda telah masuk ke sistem kami. Tim MangoCrave akan segera menghubungi nomor WhatsApp Anda untuk konfirmasi pengiriman.</p>
+    <dl id="summary" class="mt-5 text-left text-sm bg-white rounded-2xl p-4 space-y-1.5"></dl>
+    <button id="closeModal" class="mt-6 w-full bg-orange text-white font-bold rounded-full py-3">Tutup</button>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const rp = n => 'Rp' + n.toLocaleString('id-ID');
+const form = $('#orderForm'), varian = $('#varian'), jumlah = $('#jumlah');
+
+// mobile menu
+$('#burger').onclick = () => {
+  const m = $('#mobileMenu'); m.classList.toggle('hidden');
+  $('#burger').setAttribute('aria-expanded', !m.classList.contains('hidden'));
+};
+document.querySelectorAll('#mobileMenu a').forEach(a => a.onclick = () => $('#mobileMenu').classList.add('hidden'));
+
+// total
+function total() {
+  const price = +varian.selectedOptions[0].dataset.price;
+  const qty = Math.max(1, parseInt(jumlah.value) || 1);
+  const isBulk = varian.value === 'Paket Bulk';
+  $('#bulkNote').classList.toggle('hidden', !isBulk);
+  const text = isBulk ? 'Harga Spesial (dikonfirmasi admin)' : rp(price * qty);
+  $('#totalBox').textContent = text;
+  $('#totalBox').classList.toggle('text-base', isBulk);
+  $('#totalInput').value = text;
+  return text;
+}
+varian.onchange = () => { if (varian.value === 'Paket Bulk' && +jumlah.value < 10) jumlah.value = 10; total(); };
+jumlah.oninput = total;
+
+// pick from menu cards
+document.querySelectorAll('.pick').forEach(b => b.onclick = () => {
+  const map = {'Original':'MangoCrave Original','Popping Boba':'MangoCrave Popping Boba','Paket Bulk':'Paket Bulk'};
+  varian.value = map[b.dataset.pick];
+  const sw = document.querySelector('input[name=sweetMenu]:checked').value;
+  document.querySelector(`input[name="Tingkat Kemanisan"][value="${sw}"]`).checked = true;
+  varian.onchange();
+  $('#pesan').scrollIntoView({behavior:'smooth'});
+});
+
+// submit
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = $('#formError'); err.classList.add('hidden');
+  const nama = $('#nama').value.trim(), wa = $('#wa').value.trim(), alamat = $('#alamat').value.trim();
+  const qty = parseInt(jumlah.value);
+  let msg = '';
+  if (!nama) msg = 'Nama pemesan wajib diisi.';
+  else if (!/^(\+62|62|0)8[0-9]{7,12}$/.test(wa.replace(/[\s-]/g,''))) msg = 'Masukkan nomor WhatsApp yang valid, contoh 08123456789.';
+  else if (!qty || qty < 1) msg = 'Jumlah cup minimal 1.';
+  else if (varian.value === 'Paket Bulk' && qty < 10) msg = 'Paket Bulk minimal 10 cup.';
+  else if (!alamat) msg = 'Alamat lengkap atau titik temu wajib diisi.';
+  if (msg) { err.textContent = msg; err.classList.remove('hidden'); return; }
+
+  total();
+  const data = Object.fromEntries(new FormData(form).entries());
+  const btn = $('#submitBtn');
+  btn.disabled = true; $('#spin').classList.remove('hidden'); $('#btnText').textContent = 'Mengirim pesanan...';
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/muhamaddikri097@gmail.com', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify(data)
+    });
+    const out = await res.json();
+    if (!res.ok || out.success === 'false' || out.success === false) throw new Error(out.message || 'Gagal');
+    $('#summary').innerHTML = ['Nama Pemesan','Varian Menu','Jumlah Cup','Tingkat Kemanisan','Metode Pengiriman','Estimasi Total Harga']
+      .map(k => `<div class="flex justify-between gap-3"><dt class="text-ink/60">${k}</dt><dd class="font-semibold text-right"></dd></div>`).join('');
+    $('#summary').querySelectorAll('dd').forEach((dd,i) => dd.textContent = data[['Nama Pemesan','Varian Menu','Jumlah Cup','Tingkat Kemanisan','Metode Pengiriman','Estimasi Total Harga'][i]]);
+    $('#modal').classList.remove('hidden'); $('#closeModal').focus();
+    form.reset(); total();
+  } catch (x) {
+    err.textContent = 'Pesanan belum terkirim. Periksa koneksi internet lalu coba lagi, atau hubungi admin via WhatsApp 0858-8033-5403.';
+    err.classList.remove('hidden');
+  } finally {
+    btn.disabled = false; $('#spin').classList.add('hidden'); $('#btnText').textContent = 'Buat Pesanan Sekarang';
+  }
+});
+$('#closeModal').onclick = () => $('#modal').classList.add('hidden');
+$('#modal').onclick = e => { if (e.target.id === 'modal') $('#modal').classList.add('hidden'); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') $('#modal').classList.add('hidden'); });
+total();
+</script>
+</body>
+</html>
