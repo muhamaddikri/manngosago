@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MangoCrave – Dessert Mango Sago Segar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{mango:'#FFB703',orange:'#FB8500',leaf:'#2A9D8F',cream:'#FFFDF7',ink:'#3a2a12'},fontFamily:{display:['Fraunces','Georgia','serif'],sans:['"Plus Jakarta Sans"','system-ui','sans-serif']}}}}
+</script>
+<style>
+body{background:#FFFDF7;color:#3a2a12}
+:focus-visible{outline:3px solid #2A9D8F;outline-offset:2px}
+.cup-float{animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+@media (prefers-reduced-motion:reduce){.cup-float{animation:none}html{scroll-behavior:auto}}
+.pill input:checked+span{background:#2A9D8F;color:#fff;border-color:#2A9D8F}
+.opt input:checked+div{border-color:#FB8500;background:#FFF3DC}
+.inp{width:100%;border:1px solid rgba(58,42,18,.2);border-radius:.75rem;padding:.7rem 1rem;background:#fff}
+.inp:focus{border-color:#2A9D8F;outline:none}
+/* dashboard */
+#dash{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#0f172a}
+.slicer{background:#7F1D1D;border-radius:.6rem;padding:.7rem .8rem;color:#fff}
+.slicer label{display:block;font-size:.75rem;font-weight:800;margin-bottom:.35rem}
+.slicer select,.slicer input[type=date]{width:100%;background:#F2C80F;color:#1e1b0b;font-weight:700;border-radius:.25rem;padding:.3rem .45rem;font-size:.85rem}
+.slicer input[type=range]{width:100%;accent-color:#fff}
+.kpi{background:#134B8A;color:#fff;border-radius:.4rem;padding:.9rem;text-align:center}
+.kpi .big{font-size:2rem;font-weight:800;line-height:1.1}
+.panel{background:#fff;border:1px solid #cbd5e1;border-radius:.25rem;overflow:hidden}
+.panel>h3{background:#134B8A;color:#fff;text-align:center;font-weight:800;font-size:.9rem;padding:.35rem}
+.pb{padding:.75rem}
+#treemap{position:relative;height:260px}
+#treemap div{position:absolute;border:2px solid #fff;padding:.3rem .4rem;color:#fff;font-size:.72rem;font-weight:700;overflow:hidden;line-height:1.2}
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<header class="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-mango/30">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#beranda" class="flex items-center gap-2 font-display font-extrabold text-2xl">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5c7 0 12 5 12 12s-5 11-12 11S4 24 4 17 9 5 16 5z" fill="#FFB703"/><path d="M16 5c4 0 8 3 9 7-4-1-8 1-11 5-2-5-1-9 2-12z" fill="#FB8500" opacity=".8"/><path d="M17 5c0-2 2-3 5-3-1 2-2 3-5 3z" fill="#2A9D8F"/></svg>
+      Mango<span class="text-orange">Crave</span>
+    </a>
+    <ul class="hidden lg:flex items-center gap-7 text-sm font-semibold">
+      <li><a class="hover:text-orange" href="#beranda">Beranda</a></li><li><a class="hover:text-orange" href="#keunggulan">Keunggulan</a></li>
+      <li><a class="hover:text-orange" href="#menu">Menu &amp; Harga</a></li><li><a class="hover:text-orange" href="#testimoni">Testimoni</a></li>
+      <li><a class="hover:text-orange" href="#cara-pesan">Cara Pesan</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <a href="#pesan" class="bg-orange text-white font-bold text-sm px-5 py-2.5 rounded-full hover:bg-orange/90 transition">Pesan Sekarang</a>
+      <button id="burger" class="lg:hidden p-2" aria-label="Buka menu" aria-expanded="false"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-mango/30 bg-cream"><ul class="px-4 py-3 space-y-1 font-semibold">
+    <li><a class="block py-2" href="#beranda">Beranda</a></li><li><a class="block py-2" href="#keunggulan">Keunggulan</a></li><li><a class="block py-2" href="#menu">Menu &amp; Harga</a></li><li><a class="block py-2" href="#testimoni">Testimoni</a></li><li><a class="block py-2" href="#cara-pesan">Cara Pesan</a></li></ul></div>
+</header>
+
+<main>
+<section id="beranda" class="relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 w-[28rem] h-[28rem] rounded-full bg-mango/40 blur-3xl"></div>
+  <div class="absolute bottom-0 -left-20 w-72 h-72 rounded-full bg-leaf/15 blur-3xl"></div>
+  <div class="relative max-w-6xl mx-auto px-4 py-14 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.05]">Segarnya Mangga Asli, Manisnya Pas Bikin Mood Balik Lagi!</h1>
+      <p class="mt-5 text-lg text-ink/80 max-w-xl leading-relaxed">Dessert Mango Sago kekinian berbahan 100% buah mangga segar pilihan, sagu mutiara kenyal, dan kuah creamy gurih yang tidak bikin enek. Praktis, higienis, dan ramah di kantong mahasiswa maupun pekerja.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#pesan" class="bg-orange text-white font-bold px-7 py-3.5 rounded-full shadow-lg shadow-orange/30 hover:-translate-y-0.5 transition">Pesan Sekarang</a>
+        <a href="#menu" class="border-2 border-leaf text-leaf font-bold px-7 py-3.5 rounded-full hover:bg-leaf hover:text-white transition">Lihat Detail Menu</a>
+      </div>
+    </div>
+    <div class="flex justify-center"><div class="cup-float relative">
+      <svg viewBox="0 0 320 400" class="w-64 sm:w-80 drop-shadow-2xl" role="img" aria-label="Ilustrasi cup MangoCrave Mango Sago">
+        <ellipse cx="160" cy="385" rx="100" ry="10" fill="#3a2a12" opacity=".12"/>
+        <path d="M60 130 L85 370 Q88 385 105 385 L215 385 Q232 385 235 370 L260 130 Z" fill="#fff" fill-opacity=".55" stroke="#2A9D8F" stroke-width="4"/>
+        <path d="M68 190 L90 365 Q92 376 105 376 L215 376 Q228 376 230 365 L252 190 Z" fill="#FFD36B"/>
+        <path d="M68 190 Q110 170 160 190 T252 190 L246 240 L74 240Z" fill="#FFB703"/>
+        <g fill="#fff" opacity=".9"><circle cx="110" cy="290" r="9"/><circle cx="145" cy="315" r="9"/><circle cx="185" cy="295" r="9"/><circle cx="165" cy="340" r="9"/><circle cx="120" cy="335" r="9"/><circle cx="205" cy="335" r="9"/></g>
+        <rect x="90" y="215" width="44" height="34" rx="8" fill="#FB8500" transform="rotate(-10 112 232)"/><rect x="140" y="225" width="44" height="34" rx="8" fill="#FFB703" stroke="#FB8500" stroke-width="2" transform="rotate(8 162 242)"/><rect x="184" y="212" width="40" height="32" rx="8" fill="#FB8500" transform="rotate(-6 204 228)"/>
+        <path d="M60 130 Q160 70 260 130 Q250 90 215 78 Q190 40 160 55 Q125 35 105 78 Q70 90 60 130Z" fill="#FFB703"/>
+        <rect x="95" y="62" width="46" height="36" rx="9" fill="#FB8500" transform="rotate(-14 118 80)"/><rect x="150" y="45" width="50" height="38" rx="9" fill="#FFB703" stroke="#FB8500" stroke-width="3" transform="rotate(10 175 64)"/><rect x="190" y="72" width="40" height="32" rx="8" fill="#FB8500" transform="rotate(18 210 88)"/>
+        <rect x="50" y="120" width="220" height="18" rx="9" fill="#2A9D8F"/><path d="M215 130 L245 20" stroke="#FB8500" stroke-width="9" stroke-linecap="round"/>
+      </svg>
+      <span class="absolute -left-4 top-10 bg-white rounded-2xl px-3 py-2 text-sm font-bold shadow-md -rotate-6">100% mangga segar</span>
+      <span class="absolute -right-2 bottom-16 bg-leaf text-white rounded-2xl px-3 py-2 text-sm font-bold shadow-md rotate-[5deg]">Mulai Rp15.000</span>
+    </div></div>
+  </div>
+</section>
+
+<section id="keunggulan" class="bg-white py-16 md:py-24"><div class="max-w-6xl mx-auto px-4">
+  <h2 class="font-display font-extrabold text-3xl md:text-4xl">Kenapa MangoCrave?</h2>
+  <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <article class="rounded-3xl bg-mango/20 p-6"><div class="w-12 h-12 rounded-2xl bg-mango flex items-center justify-center text-2xl">🥭</div><h3 class="mt-4 font-bold text-lg">100% Mangga Segar Asli</h3><p class="mt-2 text-sm text-ink/75">Tanpa pemanis buatan berlebih dan tanpa bahan pengawet.</p></article>
+    <article class="rounded-3xl bg-orange/15 p-6"><div class="w-12 h-12 rounded-2xl bg-orange flex items-center justify-center text-2xl">🥛</div><h3 class="mt-4 font-bold text-lg">Manis Pas &amp; Creamy Gurih</h3><p class="mt-2 text-sm text-ink/75">Takaran terstandarisasi, segar di tenggorokan, tidak bikin enek.</p></article>
+    <article class="rounded-3xl bg-leaf/15 p-6"><div class="w-12 h-12 rounded-2xl bg-leaf flex items-center justify-center text-2xl">🔒</div><h3 class="mt-4 font-bold text-lg">Kemasan Higienis &amp; Anti-Tumpah</h3><p class="mt-2 text-sm text-ink/75">Secure-cap cup yang aman dibawa ke kampus atau kantor.</p></article>
+    <article class="rounded-3xl bg-mango/20 p-6"><div class="w-12 h-12 rounded-2xl bg-mango flex items-center justify-center text-2xl">💰</div><h3 class="mt-4 font-bold text-lg">Harga Ramah di Kantong</h3><p class="mt-2 text-sm text-ink/75">Mulai dari Rp15.000/cup dengan porsi yang mengenyangkan.</p></article>
+  </div>
+</div></section>
+
+<section id="menu" class="py-16 md:py-24"><div class="max-w-6xl mx-auto px-4">
+  <h2 class="font-display font-extrabold text-3xl md:text-4xl">Menu &amp; Harga</h2>
+  <div class="mt-6 flex flex-wrap items-center gap-3">
+    <span class="font-semibold text-sm">Tingkat kemanisan:</span>
+    <label class="pill cursor-pointer"><input type="radio" name="sweetMenu" value="Less Sugar" class="sr-only"><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Less Sugar (Manis Alami Buah)</span></label>
+    <label class="pill cursor-pointer"><input type="radio" name="sweetMenu" value="Normal Sweet" class="sr-only" checked><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Normal Sweet (Pas)</span></label>
+  </div>
+  <div class="mt-8 grid md:grid-cols-3 gap-6">
+    <article class="bg-white rounded-3xl p-6 border border-mango/40 flex flex-col"><div class="h-28 rounded-2xl bg-gradient-to-br from-mango to-orange flex items-center justify-center text-6xl">🥭</div><h3 class="mt-5 font-bold text-xl">MangoCrave Original <span class="text-sm font-medium text-ink/60">(200ml)</span></h3><p class="mt-2 text-sm text-ink/75 flex-1">Potongan mangga segar, sagu mutiara, jus mangga kental, kuah creamy.</p><p class="mt-4 font-display font-extrabold text-2xl text-orange">Rp15.000</p><button data-pick="MangoCrave Original" class="pick mt-3 bg-orange text-white font-bold rounded-full py-2.5">Pesan Menu Ini</button></article>
+    <article class="bg-white rounded-3xl p-6 border border-mango/40 flex flex-col"><div class="h-28 rounded-2xl bg-gradient-to-br from-leaf to-mango flex items-center justify-center text-6xl">🧋</div><h3 class="mt-5 font-bold text-xl">MangoCrave Popping Boba <span class="text-sm font-medium text-ink/60">(200ml)</span></h3><p class="mt-2 text-sm text-ink/75 flex-1">Tambahan topping popping boba segar.</p><p class="mt-4 font-display font-extrabold text-2xl text-orange">Rp18.000</p><button data-pick="MangoCrave Popping Boba" class="pick mt-3 bg-orange text-white font-bold rounded-full py-2.5">Pesan Menu Ini</button></article>
+    <article class="bg-leaf text-white rounded-3xl p-6 flex flex-col"><div class="h-28 rounded-2xl bg-white/15 flex items-center justify-center text-6xl">🎉</div><h3 class="mt-5 font-bold text-xl">Paket Bulk <span class="text-sm font-medium text-white/80">(Min. 10 Cup)</span></h3><p class="mt-2 text-sm text-white/90 flex-1">Acara kampus &amp; kantor. Harga spesial dikonfirmasi admin via WhatsApp.</p><p class="mt-4 font-display font-extrabold text-2xl text-mango">Harga Spesial</p><button data-pick="Paket Bulk" class="pick mt-3 bg-white text-leaf font-bold rounded-full py-2.5">Pesan Menu Ini</button></article>
+  </div>
+</div></section>
+
+<section id="testimoni" class="bg-mango/20 py-16 md:py-24"><div class="max-w-6xl mx-auto px-4">
+  <h2 class="font-display font-extrabold text-3xl md:text-4xl">Kata Mereka yang Sudah Coba</h2>
+  <div class="mt-8 grid sm:grid-cols-2 gap-5 max-w-3xl">
+    <div class="bg-white rounded-3xl p-6"><p class="font-display font-extrabold text-5xl text-orange">91%</p><p class="mt-1 font-semibold">Konsumen setuju rasanya pas &amp; segar</p></div>
+    <div class="bg-white rounded-3xl p-6"><p class="font-display font-extrabold text-5xl text-leaf">4.7<span class="text-2xl text-ink/50">/5</span></p><p class="mt-1 font-semibold">Rating untuk tampilan &amp; kualitas</p></div>
+  </div>
+  <div class="mt-8 grid md:grid-cols-3 gap-5">
+    <figure class="bg-white rounded-3xl p-6"><div class="text-mango">★★★★★</div><blockquote class="mt-3">“Mangganya benar-benar terasa segar, bukan sekadar rasa. Pas banget buat teman istirahat siang di kantor.”</blockquote><figcaption class="mt-4 text-sm"><b>Karina</b> – Karyawan Swasta</figcaption></figure>
+    <figure class="bg-white rounded-3xl p-6"><div class="text-mango">★★★★★</div><blockquote class="mt-3">“Cup-nya nggak tumpah waktu dibawa naik motor ke kampus. Harganya pas buat uang saku mahasiswa.”</blockquote><figcaption class="mt-4 text-sm"><b>Raka</b> – Mahasiswa</figcaption></figure>
+    <figure class="bg-white rounded-3xl p-6"><div class="text-mango">★★★★★</div><blockquote class="mt-3">“Kuahnya creamy tapi nggak bikin enek, sagunya kenyal. Salah satu mango sago terenak yang pernah aku coba.”</blockquote><figcaption class="mt-4 text-sm"><b>Dinda</b> – Pecinta Dessert</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="cara-pesan" class="py-16 md:py-24"><div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-5 gap-10">
+  <div class="lg:col-span-2">
+    <h2 class="font-display font-extrabold text-3xl md:text-4xl">Cara Pesan</h2>
+    <ol class="mt-6 space-y-5">
+      <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-orange text-white font-bold flex items-center justify-center">1</span><p><b>Isi formulir</b><br><span class="text-ink/75 text-sm">Pilih menu, jumlah, kemanisan, dan titik antar.</span></p></li>
+      <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-orange text-white font-bold flex items-center justify-center">2</span><p><b>Simpan nomor invoice</b><br><span class="text-ink/75 text-sm">Admin menghubungi WhatsApp kamu untuk konfirmasi.</span></p></li>
+      <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-orange text-white font-bold flex items-center justify-center">3</span><p><b>Nikmati</b><br><span class="text-ink/75 text-sm">Diantar COD atau GoSend/GrabExpress.</span></p></li>
+    </ol>
+  </div>
+  <div id="pesan" class="lg:col-span-3 bg-white rounded-3xl p-6 md:p-8 border border-mango/40 shadow-xl shadow-mango/10 scroll-mt-24">
+    <div class="flex flex-wrap items-center justify-between gap-2"><h3 class="font-display font-extrabold text-2xl">Form Pemesanan</h3><span id="poBadge" class="text-sm font-bold rounded-full px-4 py-1.5 bg-leaf/15 text-leaf">Memuat...</span></div>
+    <form id="orderForm" class="mt-5 space-y-5" novalidate>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div><label for="nama" class="block text-sm font-semibold mb-1">Nama Pemesan <span class="text-orange">*</span></label><input id="nama" class="inp" autocomplete="name"></div>
+        <div><label for="wa" class="block text-sm font-semibold mb-1">Nomor WhatsApp <span class="text-orange">*</span></label><input id="wa" type="tel" inputmode="tel" placeholder="08xxxxxxxxxx" class="inp" autocomplete="tel"></div>
+      </div>
+      <div><label for="varian" class="block text-sm font-semibold mb-1">Varian Menu</label>
+        <select id="varian" class="inp"><option value="MangoCrave Original">MangoCrave Original – Rp15.000</option><option value="MangoCrave Popping Boba">MangoCrave Popping Boba – Rp18.000</option><option value="Paket Bulk">Paket Bulk (min. 10 cup) – Harga Spesial</option></select></div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div><label for="jumlah" class="block text-sm font-semibold mb-1">Jumlah Cup</label><input id="jumlah" type="number" min="1" value="1" class="inp"></div>
+        <div><span class="block text-sm font-semibold mb-1">Estimasi Total Harga</span><div id="totalBox" class="rounded-xl bg-mango/25 px-4 py-3 font-display font-extrabold text-xl text-orange" aria-live="polite">Rp15.000</div></div>
+      </div>
+      <fieldset><legend class="block text-sm font-semibold mb-2">Tingkat Kemanisan</legend><div class="flex flex-wrap gap-3">
+        <label class="pill cursor-pointer"><input type="radio" name="manis" value="Less Sugar" class="sr-only"><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Less Sugar</span></label>
+        <label class="pill cursor-pointer"><input type="radio" name="manis" value="Normal Sweet" class="sr-only" checked><span class="inline-block border-2 border-leaf rounded-full px-4 py-2 text-sm font-semibold transition">Normal Sweet</span></label></div></fieldset>
+      <fieldset><legend class="block text-sm font-semibold mb-2">Metode Pengiriman</legend><div class="grid sm:grid-cols-2 gap-3">
+        <label class="opt cursor-pointer"><input type="radio" name="kirim" value="COD Kampus" class="sr-only" checked><div class="border-2 border-ink/15 rounded-xl p-3 text-sm transition"><b>COD Kampus</b><br>Area kampus / sekitar</div></label>
+        <label class="opt cursor-pointer"><input type="radio" name="kirim" value="GoSend / GrabExpress" class="sr-only"><div class="border-2 border-ink/15 rounded-xl p-3 text-sm transition"><b>Pengiriman Instan</b><br>GoSend / GrabExpress</div></label></div></fieldset>
+      <div><label for="alamat" class="block text-sm font-semibold mb-1">Alamat Lengkap / Titik Temu <span class="text-orange">*</span></label><textarea id="alamat" rows="3" class="inp"></textarea></div>
+      <p id="formError" class="hidden text-sm font-semibold text-red-700" role="alert"></p>
+      <button id="submitBtn" type="submit" class="w-full bg-orange text-white font-bold rounded-full py-4 text-lg hover:bg-orange/90 transition disabled:opacity-60 disabled:cursor-not-allowed">Buat Pesanan Sekarang</button>
+    </form>
+  </div>
+</div></section>
+</main>
+
+<footer class="bg-ink text-cream py-12">
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm">
+    <div><p class="font-display font-extrabold text-2xl">Mango<span class="text-mango">Crave</span></p><p class="mt-3 text-cream/75">MangoCrave by Mango Squad (Politeknik LP3I Jakarta).</p></div>
+    <div><p class="font-bold mb-3">Kontak Admin</p><p><a class="hover:text-mango" href="https://wa.me/6285880335403">WhatsApp 0858-8033-5403</a></p><p class="mt-1"><a class="hover:text-mango" href="mailto:muhamaddikri097@gmail.com">muhamaddikri097@gmail.com</a></p></div>
+    <div><p class="font-bold mb-3">Ikuti &amp; Jam Operasional</p><p><a class="hover:text-mango" href="https://instagram.com/mangocrave.id" target="_blank" rel="noopener">Instagram @mangocrave.id</a></p><p class="mt-1"><a class="hover:text-mango" href="https://tiktok.com/@mangocrave.id" target="_blank" rel="noopener">TikTok @mangocrave.id</a></p><p class="mt-3 text-cream/75">Pre-Order &amp; Delivery: Senin–Sabtu, 09.00–20.00 WIB</p></div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 mt-8 flex justify-between items-center text-xs text-cream/60">
+    <span>© 2026 MangoCrave</span>
+    <button id="adminBtn" class="flex items-center gap-1.5 hover:text-mango"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Admin Dashboard</button>
+  </div>
+</footer>
+
+<div id="modal" class="hidden fixed inset-0 z-50 bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="bg-cream rounded-3xl max-w-md w-full p-7 text-center shadow-2xl">
+    <div class="mx-auto w-16 h-16 rounded-full bg-leaf flex items-center justify-center"><svg width="34" height="34" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18l8 8 14-16"/></svg></div>
+    <h3 id="modalTitle" class="mt-4 font-display font-extrabold text-2xl">Pesanan Berhasil Diterima!</h3>
+    <p class="mt-1 text-sm">No. Invoice: <b id="invNo" class="text-orange"></b></p>
+    <p class="mt-2 text-sm text-ink/80">Rincian pesanan Anda telah masuk ke sistem kami. Tim MangoCrave akan segera menghubungi nomor WhatsApp Anda untuk konfirmasi pengiriman.</p>
+    <dl id="summary" class="mt-5 text-left text-sm bg-white rounded-2xl p-4 space-y-1.5"></dl>
+    <button id="closeModal" class="mt-6 w-full bg-orange text-white font-bold rounded-full py-3">Tutup</button>
+  </div>
+</div>
+
+<div id="loginModal" class="hidden fixed inset-0 z-50 bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+  <form id="loginForm" class="bg-cream rounded-3xl max-w-sm w-full p-7 shadow-2xl space-y-4">
+    <h3 id="loginTitle" class="font-display font-extrabold text-2xl">Admin Mango Squad</h3>
+    <div><label for="lu" class="block text-sm font-semibold mb-1">Username</label><input id="lu" class="inp" autocomplete="username"></div>
+    <div><label for="lp" class="block text-sm font-semibold mb-1">Password</label><input id="lp" type="password" class="inp" autocomplete="current-password"></div>
+    <p id="loginErr" class="hidden text-sm font-semibold text-red-700" role="alert">Username atau password salah.</p>
+    <div class="flex gap-2"><button type="button" id="loginCancel" class="flex-1 border-2 border-ink/20 rounded-full py-2.5 font-bold">Batal</button><button class="flex-1 bg-leaf text-white rounded-full py-2.5 font-bold">Masuk</button></div>
+  </form>
+</div>
+
+<!-- ============ DASHBOARD ADMIN ============ -->
+<div id="dash" class="hidden fixed inset-0 z-[60] overflow-y-auto" style="background:#F1F5F9">
+  <div class="sticky top-0 z-20 text-white" style="background:#134B8A">
+    <div class="max-w-[1500px] mx-auto px-4 py-3 flex items-center justify-between gap-2">
+      <div class="w-16 hidden md:block"></div>
+      <div class="text-center flex-1"><h2 class="font-extrabold text-xl md:text-3xl">MANGOCRAVE SALES &amp; PO DASHBOARD</h2><p id="syncInfo" class="text-xs text-white/70"></p></div>
+      <button id="logout" class="bg-white font-bold rounded-full px-4 py-2 text-sm" style="color:#134B8A">Keluar</button>
+    </div>
+  </div>
+  <div class="max-w-[1500px] mx-auto px-4 py-4 space-y-4">
+    <section class="grid grid-cols-2 lg:grid-cols-6 gap-3">
+      <div class="slicer col-span-2 lg:col-span-1"><label>Rentang Tanggal</label><div class="flex gap-1"><input type="date" id="fFrom" aria-label="Dari tanggal"><input type="date" id="fTo" aria-label="Sampai tanggal"></div><input type="range" id="fSlide" min="0" max="100" value="100" class="mt-2" aria-label="Geser tanggal akhir"></div>
+      <div class="slicer"><label for="fPo">Batch PO</label><div class="flex gap-1"><select id="fPo"></select><button id="poNew" class="shrink-0 rounded font-bold text-xs px-2" style="background:#F2C80F;color:#1e1b0b" title="Buat PO baru">+ PO</button></div><button id="poToggle" class="mt-1 text-xs underline font-semibold hidden"></button></div>
+      <div class="slicer"><label for="fStatus">Status Pesanan</label><select id="fStatus"><option value="">Semua Status</option><option value="pending">Perlu Dikerjakan</option><option value="done">Selesai</option></select></div>
+      <div class="slicer"><label for="fVarian">Varian Menu</label><select id="fVarian"><option value="">Semua Varian</option><option>MangoCrave Original</option><option>MangoCrave Popping Boba</option><option>Paket Bulk</option></select></div>
+      <div class="slicer"><label for="fPic">PIC Kelompok</label><select id="fPic"><option value="">Semua Anggota</option><option>Dikri</option><option>Sasya</option><option>Shifa</option></select></div>
+      <div class="slicer"><label for="fKirim">Metode Kirim</label><select id="fKirim"><option value="">Semua Metode</option><option>COD Kampus</option><option>GoSend / GrabExpress</option></select></div>
+    </section>
+    <section class="grid lg:grid-cols-12 gap-4">
+      <div class="lg:col-span-3 space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="kpi"><p id="kRev" class="big">Rp 0</p><p class="font-semibold mt-1">Total Revenue</p></div>
+          <div class="kpi"><p id="kCup" class="big">0 Cup</p><p class="font-semibold mt-1">Unit Sold</p></div>
+        </div>
+        <div class="kpi"><p class="text-xs font-semibold text-white/80">Status Produksi</p><div class="flex justify-around mt-1 font-extrabold"><span id="kPend" style="color:#FDBA74">0 Perlu Dikerjakan</span><span id="kDone" style="color:#6EE7B7">0 Selesai</span></div></div>
+        <div class="kpi"><p class="text-xs font-semibold text-white/80">Modal (HPP) &amp; Profit Bersih</p>
+          <div class="flex gap-1 mt-1"><select id="hMode" class="w-1/2 rounded text-xs p-1 text-black"><option value="cup">HPP per Cup</option><option value="total">Total Belanja</option></select><input id="hVal" type="number" min="0" placeholder="Rp" class="w-1/2 rounded text-xs p-1 text-black"></div>
+          <p id="hNote" class="text-[10px] text-white/70 mt-1"></p>
+          <p id="kProfit" class="font-extrabold text-2xl mt-1">Rp 0</p><p id="kMargin" class="text-xs font-semibold"></p></div>
+        <div class="panel"><h3>Penjualan per PIC / Metode Kirim</h3><div class="pb"><select id="donutBy" class="text-xs border rounded p-1"><option value="pic">per PIC</option><option value="kirim">per Metode</option></select><div class="h-72"><canvas id="cDonut"></canvas></div></div></div>
+      </div>
+      <div class="lg:col-span-5 space-y-3">
+        <div class="panel"><h3>Tren Penjualan</h3><div class="pb"><select id="trendBy" class="text-xs border rounded p-1"><option value="date">per Tanggal</option><option value="po">per Batch PO</option></select><div class="h-60"><canvas id="cTrend"></canvas></div></div></div>
+        <div class="panel"><h3>Kontribusi Omzet per PIC &amp; Tingkat Manis</h3><div class="pb"><div id="treemap"></div></div></div>
+      </div>
+      <div class="lg:col-span-4"><div class="panel h-full"><h3>Peringkat Varian &amp; Pelanggan Teratas</h3><div class="pb space-y-2">
+        <p class="text-xs font-extrabold" style="color:#134B8A">Varian</p><div id="rankVar" class="space-y-1.5"></div>
+        <p class="text-xs font-extrabold pt-3" style="color:#134B8A">Pelanggan</p><div id="rankCus" class="space-y-1.5"></div></div></div></div>
+    </section>
+    <section class="panel"><h3>Manajemen Operasional Pesanan</h3><div class="pb">
+      <div class="flex justify-end"><button id="csvBtn" class="text-white font-bold rounded px-4 py-2 text-sm" style="background:#134B8A">Export Laporan ke CSV/Excel</button></div>
+      <div class="mt-3 overflow-x-auto"><table class="w-full text-sm min-w-[70rem]">
+        <thead><tr class="text-left border-b-2" style="color:#134B8A"><th class="py-2 pr-2">Invoice</th><th class="pr-2">Tanggal</th><th class="pr-2">Batch</th><th class="pr-2">Pembeli</th><th class="pr-2">WA</th><th class="pr-2">Varian &amp; Manis</th><th class="pr-2">Qty</th><th class="pr-2">Total</th><th class="pr-2">PIC</th><th class="pr-2">Status</th><th>Aksi</th></tr></thead>
+        <tbody id="tbody"></tbody></table>
+        <p id="empty" class="hidden py-8 text-center text-slate-500">Tidak ada pesanan sesuai filter.</p></div></div></section>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   KONFIGURASI
+   ===================================================================== */
+const ADMIN_USER = 'mangosquad';   // ubah username admin di sini
+const ADMIN_PASS = 'cuan2026';     // ubah password admin di sini (pengaman sederhana di sisi browser, bukan keamanan sungguhan)
+const NOTIFY_EMAIL = 'muhamaddikri097@gmail.com'; // tujuan notifikasi FormSubmit (aktivasi lewat email konfirmasi pertama)
+const TEAM = ['Dikri','Sasya','Shifa'];
+
+/* ---------------------------------------------------------------------
+   FIREBASE REALTIME DATABASE - PANDUAN:
+   1. Buka https://console.firebase.google.com > "Add project" (misal: mangocrave).
+   2. Menu Build > Realtime Database > Create Database (pilih lokasi Singapore, mulai mode test).
+   3. Project Settings (ikon gir) > General > "Your apps" > ikon </> (Web) > daftarkan app,
+      lalu salin isi firebaseConfig ke objek di bawah ini.
+   4. Tab "Rules" di Realtime Database, tempel (cukup untuk tugas kuliah, jangan untuk data sensitif):
+        { "rules": { ".read": true, ".write": true } }
+   5. Simpan file ini, upload ke hosting (Netlify/Vercel/GitHub Pages). Buka dari HP Dikri, Sasya, Shifa:
+      perubahan langsung muncul di semua perangkat tanpa refresh.
+   6. Selama databaseURL masih kosong (''), aplikasi memakai LocalStorage (data hanya di 1 perangkat).
+   --------------------------------------------------------------------- */
+const firebaseConfig = {
+  apiKey: "",            // contoh: "AIzaSy..."
+  authDomain: "",        // contoh: "mangocrave.firebaseapp.com"
+  databaseURL: "",       // WAJIB diisi, contoh: "https://mangocrave-default-rtdb.asia-southeast1.firebasedatabase.app"
+  projectId: "",         // contoh: "mangocrave"
+  appId: ""              // contoh: "1:1234567890:web:abcdef"
+};
+/* ===================================================================== */
+
+const $=s=>document.querySelector(s);
+const rp=n=>'Rp '+Math.round(n).toLocaleString('id-ID');
+const PRICE={'MangoCrave Original':15000,'MangoCrave Popping Boba':18000,'Paket Bulk':0};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- Lapisan data: Firebase (onValue) + fallback LocalStorage ---------- */
+const LS_KEY='mangocrave_db_v3', S={po:{},orders:{}}; let fb=null;
+const hooks=[]; const onChange=f=>hooks.push(f); const emit=()=>hooks.forEach(f=>f());
+try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){S.po=d.po||{};S.orders=d.orders||{};}}catch(e){}
+const saveLocal=()=>{try{localStorage.setItem(LS_KEY,JSON.stringify(S));}catch(e){}};
+function put(path,val){                        // tulis instan lokal, sinkron ke Firebase di latar belakang
+  const [root,id]=path.split('/');
+  if(val===null) delete S[root][id]; else S[root][id]=val;
+  saveLocal(); emit();
+  if(fb) (val===null?fb.remove(fb.ref(fb.db,path)):fb.set(fb.ref(fb.db,path),val)).catch(console.warn);
+}
+function ensureDefault(){ if(!Object.keys(S.po).length) put('po/po1',{no:1,status:'open',hppMode:'cup',hppVal:0}); }
+async function initCloud(){
+  if(!firebaseConfig.databaseURL){ $('#syncInfo').textContent='Mode lokal (LocalStorage). Isi firebaseConfig agar tersinkron antar perangkat.'; return; }
+  try{
+    const v='10.12.2', base=`https://www.gstatic.com/firebasejs/${v}/`;
+    const {initializeApp}=await import(base+'firebase-app.js');
+    const {getDatabase,ref,set,remove,onValue}=await import(base+'firebase-database.js');
+    const db=getDatabase(initializeApp(firebaseConfig)); fb={db,ref,set,remove};
+    onValue(ref(db,'po'),s=>{S.po=s.val()||{}; if(!Object.keys(S.po).length) ensureDefault(); saveLocal(); emit();});
+    onValue(ref(db,'orders'),s=>{S.orders=s.val()||{}; saveLocal(); emit();});
+    $('#syncInfo').textContent='Tersinkron real-time via Firebase Realtime Database.';
+  }catch(e){ console.warn(e); $('#syncInfo').textContent='Firebase gagal dimuat, memakai LocalStorage.'; }
+}
+
+/* ---------- Helper ---------- */
+const poList=()=>Object.entries(S.po).map(([id,p])=>({id,...p})).sort((a,b)=>a.no-b.no);
+const activePO=()=>{const l=poList().filter(p=>p.status==='open');return l.length?l[l.length-1]:null;};
+const allOrders=()=>Object.entries(S.orders).map(([id,o])=>({id,...o}));
+function nextPIC(poId){ // rotasi otomatis: PIC dengan pesanan Perlu Dikerjakan paling sedikit
+  const os=allOrders().filter(o=>o.poId===poId&&o.status!=='done'), cnt=Object.fromEntries(TEAM.map(t=>[t,0]));
+  os.forEach(o=>{if(cnt[o.pic]!=null)cnt[o.pic]++;});
+  return TEAM.slice().sort((a,b)=>cnt[a]-cnt[b])[0];
+}
+
+/* ---------- Halaman pembeli ---------- */
+$('#burger').onclick=()=>{const m=$('#mobileMenu');m.classList.toggle('hidden');$('#burger').setAttribute('aria-expanded',!m.classList.contains('hidden'));};
+document.querySelectorAll('#mobileMenu a').forEach(a=>a.onclick=()=>$('#mobileMenu').classList.add('hidden'));
+const varian=$('#varian'), jumlah=$('#jumlah');
+function calc(){const q=Math.max(1,parseInt(jumlah.value)||1);const t=PRICE[varian.value]*q;
+  $('#totalBox').textContent=varian.value==='Paket Bulk'?'Harga Spesial':rp(t).replace('Rp ','Rp');return t;}
+varian.onchange=()=>{if(varian.value==='Paket Bulk'&&+jumlah.value<10)jumlah.value=10;calc();}; jumlah.oninput=calc;
+document.querySelectorAll('.pick').forEach(b=>b.onclick=()=>{
+  varian.value=b.dataset.pick;
+  document.querySelector(`input[name=manis][value="${document.querySelector('input[name=sweetMenu]:checked').value}"]`).checked=true;
+  varian.onchange(); $('#pesan').scrollIntoView({behavior:'smooth'});
+});
+function renderBadge(){
+  const p=activePO(),b=$('#poBadge');
+  if(p){b.textContent=`Pre-Order Batch #${p.no} - Dibuka`;b.className='text-sm font-bold rounded-full px-4 py-1.5 bg-leaf/15 text-leaf';$('#submitBtn').disabled=false;}
+  else{b.textContent='Pre-Order Ditutup';b.className='text-sm font-bold rounded-full px-4 py-1.5 bg-red-100 text-red-700';$('#submitBtn').disabled=true;}
+}
+function newInvoice(){const d=new Date(),p=n=>String(n).padStart(2,'0');
+  return `MC-${String(d.getFullYear()).slice(2)}${p(d.getMonth()+1)}${p(d.getDate())}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;}
+$('#orderForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const err=$('#formError');err.classList.add('hidden');
+  const nama=$('#nama').value.trim(),wa=$('#wa').value.trim(),alamat=$('#alamat').value.trim(),qty=parseInt(jumlah.value);
+  let msg='';
+  if(!nama)msg='Nama pemesan wajib diisi.';
+  else if(!/^(\+62|62|0)8[0-9]{7,12}$/.test(wa.replace(/[\s-]/g,'')))msg='Masukkan nomor WhatsApp yang valid, contoh 08123456789.';
+  else if(!qty||qty<1)msg='Jumlah cup minimal 1.';
+  else if(varian.value==='Paket Bulk'&&qty<10)msg='Paket Bulk minimal 10 cup.';
+  else if(!alamat)msg='Alamat lengkap atau titik temu wajib diisi.';
+  else if(!activePO())msg='Pre-Order sedang ditutup. Hubungi admin untuk batch berikutnya.';
+  if(msg){err.textContent=msg;err.classList.remove('hidden');return;}
+  const po=activePO(),inv=newInvoice(),total=PRICE[varian.value]*qty;
+  const o={inv,poId:po.id,poNo:po.no,ts:Date.now(),nama,wa,varian:varian.value,qty,
+    manis:document.querySelector('input[name=manis]:checked').value,kirim:document.querySelector('input[name=kirim]:checked').value,
+    alamat,total,status:'pending',pic:nextPIC(po.id)};
+  put('orders/'+inv,o);                              // 1) simpan seketika
+  $('#invNo').textContent=inv;                       // 2) modal seketika
+  const rows=[['Nama',nama],['Batch',`PO #${po.no}`],['Varian',o.varian],['Jumlah',qty+' cup'],['Kemanisan',o.manis],['Pengiriman',o.kirim],['Total',o.varian==='Paket Bulk'?'Harga spesial (dikonfirmasi admin)':rp(total)]];
+  $('#summary').innerHTML=rows.map(r=>`<div class="flex justify-between gap-3"><dt class="text-ink/60">${r[0]}</dt><dd class="font-semibold text-right">${esc(r[1])}</dd></div>`).join('');
+  $('#modal').classList.remove('hidden');$('#closeModal').focus();e.target.reset();calc();
+  try{fetch(`https://formsubmit.co/ajax/${NOTIFY_EMAIL}`,{method:'POST',keepalive:true, // 3) email di latar belakang
+    headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({_subject:'Pesanan Baru MangoCrave!',_template:'table',_captcha:'false',Invoice:inv,'Batch PO':'#'+po.no,PIC:o.pic,
+      'Nama Pemesan':nama,'Nomor WhatsApp':wa,'Varian Menu':o.varian,'Jumlah Cup':qty,'Estimasi Total Harga':o.varian==='Paket Bulk'?'Harga spesial':rp(total),
+      'Tingkat Kemanisan':o.manis,'Metode Pengiriman':o.kirim,Alamat:alamat})}).catch(()=>{});}catch(_){}
+});
+$('#closeModal').onclick=()=>$('#modal').classList.add('hidden');
+$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.add('hidden');};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#modal').classList.add('hidden');$('#loginModal').classList.add('hidden');}});
+
+/* ---------- Login ---------- */
+$('#adminBtn').onclick=()=>{if(sessionStorage.getItem('mc_admin')==='1')openDash();else{$('#loginModal').classList.remove('hidden');$('#lu').focus();}};
+$('#loginCancel').onclick=()=>$('#loginModal').classList.add('hidden');
+$('#loginForm').onsubmit=e=>{e.preventDefault();
+  if($('#lu').value.trim()===ADMIN_USER&&$('#lp').value===ADMIN_PASS){sessionStorage.setItem('mc_admin','1');$('#loginErr').classList.add('hidden');$('#loginModal').classList.add('hidden');e.target.reset();openDash();}
+  else $('#loginErr').classList.remove('hidden');};
+$('#logout').onclick=()=>{sessionStorage.removeItem('mc_admin');$('#dash').classList.add('hidden');document.body.style.overflow='';};
+function openDash(){$('#dash').classList.remove('hidden');document.body.style.overflow='hidden';
+  const a=activePO(); if(!$('#fPo').value&&a)$('#fPo').dataset.init=a.id; renderDash();}
+
+/* ---------- Dashboard ---------- */
+const F={po:'',status:'',varian:'',pic:'',kirim:'',from:'',to:''};
+const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+$('#fSlide').oninput=e=>{const ts=allOrders().map(o=>o.ts);if(!ts.length)return;const mn=Math.min(...ts),mx=Math.max(...ts),v=+e.target.value;F.to=v>=100?'':ymd(new Date(mn+(mx-mn)*v/100));$('#fTo').value=F.to;renderDash();};
+[['fPo','po'],['fStatus','status'],['fVarian','varian'],['fPic','pic'],['fKirim','kirim'],['fFrom','from'],['fTo','to']].forEach(([id,k])=>$('#'+id).onchange=e=>{F[k]=e.target.value;renderDash();});
+$('#donutBy').onchange=renderDash; $('#trendBy').onchange=renderDash;
+$('#poNew').onclick=()=>{const l=poList(),no=(l.length?l[l.length-1].no:0)+1;put('po/po'+no,{no,status:'open',hppMode:'cup',hppVal:0});F.po='po'+no;renderDash();};
+$('#poToggle').onclick=()=>{const p=S.po[F.po];put('po/'+F.po,{...p,status:p.status==='open'?'closed':'open'});};
+$('#hMode').onchange=e=>{if(S.po[F.po])put('po/'+F.po,{...S.po[F.po],hppMode:e.target.value});};
+$('#hVal').oninput=e=>{if(S.po[F.po])put('po/'+F.po,{...S.po[F.po],hppVal:+e.target.value||0});};
+
+const filtered=()=>allOrders().filter(o=>(!F.po||o.poId===F.po)&&(!F.status||(o.status==='done'?'done':'pending')===F.status)&&(!F.varian||o.varian===F.varian)&&(!F.pic||o.pic===F.pic)&&(!F.kirim||o.kirim===F.kirim)&&(!F.from||o.ts>=new Date(F.from+'T00:00:00').getTime())&&(!F.to||o.ts<=new Date(F.to+'T23:59:59.999').getTime())).sort((a,b)=>b.ts-a.ts);
+const sumBy=(arr,keyFn)=>{const m={};arr.forEach(o=>{const k=keyFn(o);m[k]=(m[k]||0)+o.total;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
+function calcHpp(list){ // HPP semua PO dalam cakupan filter
+  const all=allOrders(), ids=[...new Set(list.map(o=>o.poId))]; let h=0;
+  ids.forEach(id=>{const p=S.po[id];if(!p)return;const cups=list.filter(o=>o.poId===id).reduce((a,o)=>a+o.qty,0);
+    if(p.hppMode==='total'){const pc=all.filter(o=>o.poId===id).reduce((a,o)=>a+o.qty,0);h+=pc?(p.hppVal||0)*cups/pc:0;}
+    else h+=(p.hppVal||0)*cups;});
+  return h;
+}
+const COL=['#01B8AA','#F2C80F','#FD625E','#374649','#8AD4EB','#A66999','#FE9666','#3599B8'];
+const rpc=v=>v>=1e6?'Rp'+(v/1e6).toFixed(2)+'jt':v>=1e3?'Rp'+Math.round(v/1e3)+'rb':'Rp'+v;
+const outLabels={id:'outLabels',afterDatasetsDraw(ch){const {ctx}=ch,m=ch.getDatasetMeta(0),d=ch.data.datasets[0].data,t=d.reduce((a,b)=>a+b,0)||1;
+  ctx.save();ctx.font='600 11px "Plus Jakarta Sans",sans-serif';ctx.fillStyle='#0f172a';
+  m.data.forEach((arc,i)=>{if(!d[i])return;const a=(arc.startAngle+arc.endAngle)/2,r=arc.outerRadius+8,x=arc.x+Math.cos(a)*r,y=arc.y+Math.sin(a)*r;
+    ctx.textAlign=Math.cos(a)>=0?'left':'right';ctx.fillText(ch.data.labels[i],x,y-2);ctx.fillText(`${rpc(d[i])} (${(d[i]/t*100).toFixed(1)}%)`,x,y+11);});ctx.restore();}};
+function tmLayout(it,x,y,w,h,out){if(!it.length)return;if(it.length===1){out.push({...it[0],x,y,w,h});return;}
+  const tot=it.reduce((a,i)=>a+i.v,0);let k=1,acc=it[0].v;while(k<it.length-1&&acc+it[k].v<=tot/2){acc+=it[k].v;k++;}
+  const A=it.slice(0,k),B=it.slice(k),ta=A.reduce((a,i)=>a+i.v,0)/tot;
+  if(w>=h){tmLayout(A,x,y,w*ta,h,out);tmLayout(B,x+w*ta,y,w*(1-ta),h,out);}else{tmLayout(A,x,y,w,h*ta,out);tmLayout(B,x,y+h*ta,w,h*(1-ta),out);}}
+let cDonut,cTrend;
+function renderDash(){
+  if($('#dash').classList.contains('hidden'))return;
+  const pl=poList();
+  if($('#fPo').dataset.init){F.po=$('#fPo').dataset.init;delete $('#fPo').dataset.init;}
+  if(F.po&&!S.po[F.po])F.po='';
+  $('#fPo').innerHTML='<option value="">Semua PO</option>'+pl.map(p=>`<option value="${p.id}">PO #${p.no} (${p.status==='open'?'Buka':'Tutup'})</option>`).join('');
+  $('#fPo').value=F.po;
+  const tg=$('#poToggle');if(F.po){tg.classList.remove('hidden');tg.textContent=S.po[F.po].status==='open'?'Tutup PO ini':'Buka PO ini';}else tg.classList.add('hidden');
+  const L=filtered(),rev=L.reduce((a,o)=>a+o.total,0),cups=L.reduce((a,o)=>a+o.qty,0);
+  const pend=L.filter(o=>o.status!=='done'),done=L.filter(o=>o.status==='done');
+  const hpp=calcHpp(L),profit=rev-hpp,margin=rev?profit/rev*100:0;
+  $('#kRev').textContent=rp(rev);$('#kCup').textContent=cups+' Cup';
+  $('#kPend').textContent=`${pend.length} Perlu Dikerjakan`;$('#kDone').textContent=`${done.length} Selesai`;
+  const p=F.po?S.po[F.po]:null;$('#hMode').disabled=$('#hVal').disabled=!p;
+  if(p){$('#hMode').value=p.hppMode||'cup';if(document.activeElement!==$('#hVal'))$('#hVal').value=p.hppVal||'';$('#hVal').placeholder=p.hppMode==='total'?'Total belanja (Rp)':'HPP per cup (Rp)';$('#hNote').textContent='Modal PO #'+p.no+': '+rp(hpp);}
+  else{$('#hVal').value='';$('#hNote').textContent='Pilih satu PO untuk isi modal. Total modal: '+rp(hpp);}
+  $('#kProfit').textContent=rp(profit);$('#kProfit').style.color=profit<0?'#FCA5A5':'#6EE7B7';$('#kMargin').textContent='Margin '+margin.toFixed(1)+'%';
+  // Donut dengan label di luar (nama, nilai, persen)
+  const dBy=$('#donutBy').value,dd=sumBy(L,o=>dBy==='pic'?(o.pic||'-'):o.kirim);
+  const dData={labels:dd.map(x=>x[0]),datasets:[{data:dd.map(x=>x[1]),backgroundColor:COL,borderColor:'#fff',borderWidth:2}]};
+  if(!cDonut)cDonut=new Chart($('#cDonut'),{type:'doughnut',data:dData,plugins:[outLabels],options:{maintainAspectRatio:false,cutout:'55%',layout:{padding:{left:75,right:75,top:25,bottom:25}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+rp(c.parsed)}}}}});
+  else{cDonut.data=dData;cDonut.update();}
+  // Tren
+  const tBy=$('#trendBy').value,asc=L.slice().sort((a,b)=>a.ts-b.ts);
+  const td=tBy==='po'?sumBy(asc,o=>'PO #'+o.poNo).sort((a,b)=>parseInt(a[0].slice(4))-parseInt(b[0].slice(4))):
+    (()=>{const m={};asc.forEach(o=>{const k=new Date(o.ts).toLocaleDateString('id-ID',{day:'2-digit',month:'short'});m[k]=(m[k]||0)+o.total;});return Object.entries(m);})();
+  const tData={labels:td.map(x=>x[0]),datasets:[{label:'Omzet',data:td.map(x=>x[1]),borderColor:'#134B8A',backgroundColor:'rgba(19,75,138,.35)',fill:true,tension:.35,pointRadius:2,borderWidth:2}]};
+  if(!cTrend)cTrend=new Chart($('#cTrend'),{type:'line',data:tData,options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+rp(c.parsed.y)}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>rpc(v)}}}}});
+  else{cTrend.data=tData;cTrend.update();}
+  // Treemap proporsional
+  const tm=sumBy(L,o=>`${o.pic||'-'}|${o.manis}`).filter(x=>x[1]>0).map((x,i)=>({k:x[0],v:x[1],c:COL[i%COL.length]})),tmT=tm.reduce((a,x)=>a+x.v,0)||1,rects=[];
+  tmLayout(tm,0,0,100,100,rects);
+  $('#treemap').innerHTML=rects.length?rects.map(r=>{const [pic,m]=r.k.split('|');return `<div style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%;background:${r.c};color:${r.c==='#F2C80F'||r.c==='#8AD4EB'?'#1e1b0b':'#fff'}">${esc(pic)} · ${esc(m)}<br><span class="font-medium">${rpc(r.v)} (${(r.v/tmT*100).toFixed(0)}%)</span></div>`;}).join(''):'<p class="text-sm text-slate-500">Belum ada data.</p>';
+  // Peringkat (batang kuning emas, nilai di ujung kanan)
+  const bar=(n,v,max)=>`<div class="flex items-center gap-2 text-xs"><span class="w-28 shrink-0 text-right font-semibold truncate">${esc(n)}</span><div class="flex-1 flex items-center gap-1 min-w-0"><div class="h-4 rounded-sm" style="width:${max?Math.max(2,v/max*70):0}%;background:#F2C80F"></div><span class="font-bold whitespace-nowrap">${rpc(v)}</span></div></div>`;
+  const rv=sumBy(L,o=>o.varian),rc=sumBy(L,o=>`${o.nama} (${o.wa.replace(/\D/g,'')})`).slice(0,10);
+  $('#rankVar').innerHTML=rv.length?rv.map(x=>bar(x[0],x[1],rv[0][1])).join(''):'<p class="text-sm text-slate-500">Belum ada data.</p>';
+  $('#rankCus').innerHTML=rc.length?rc.map(x=>bar(x[0].replace(/ \(\d+\)$/,''),x[1],rc[0][1])).join(''):'<p class="text-sm text-slate-500">Belum ada data.</p>';
+  // Tabel
+  $('#empty').classList.toggle('hidden',L.length>0);
+  $('#tbody').innerHTML=L.map(o=>{
+    const d=new Date(o.ts),isDone=o.status==='done',wn=o.wa.replace(/\D/g,'').replace(/^0/,'62');
+    const txt=encodeURIComponent(`Halo ${o.nama}, pesanan MangoCrave ${o.inv} (${o.qty} cup ${o.varian}) sudah kami terima. Mohon konfirmasi ya! - ${o.pic||'Tim MangoCrave'}`);
+    const tot=o.varian==='Paket Bulk'&&!o.total?`<button data-act="price" data-id="${o.id}" class="underline text-orange-700 font-semibold">Set harga</button>`:`<span class="font-semibold">${rp(o.total)}</span>${o.varian==='Paket Bulk'?` <button data-act="price" data-id="${o.id}" class="text-xs underline">ubah</button>`:''}`;
+    return `<tr class="border-b align-top"><td class="py-2 pr-2 font-semibold">${esc(o.inv)}</td><td class="pr-2 whitespace-nowrap">${d.toLocaleDateString('id-ID')}<br><span class="text-slate-500">${d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}</span></td>
+    <td class="pr-2">PO #${o.poNo}</td><td class="pr-2">${esc(o.nama)}<br><span class="text-slate-500 text-xs">${esc(o.kirim)} · ${esc(o.alamat)}</span></td>
+    <td class="pr-2"><a target="_blank" rel="noopener" href="https://wa.me/${wn}?text=${txt}" class="inline-block rounded px-2 py-1 text-xs font-bold text-white" style="background:#16A34A">WA ${esc(o.wa)}</a></td>
+    <td class="pr-2">${esc(o.varian)}<br><span class="text-slate-500 text-xs">${esc(o.manis)}</span></td><td class="pr-2">${o.qty}</td><td class="pr-2 whitespace-nowrap">${tot}</td>
+    <td class="pr-2"><select data-act="pic" data-id="${o.id}" class="border rounded p-1 text-xs">${TEAM.map(t=>`<option ${o.pic===t?'selected':''}>${t}</option>`).join('')}</select></td>
+    <td class="pr-2"><button data-act="toggle" data-id="${o.id}" class="rounded-full px-3 py-1 text-xs font-bold text-white whitespace-nowrap" style="background:${isDone?'#16A34A':'#F97316'}" title="Klik untuk ubah status">${isDone?'Selesai':'Perlu Dikerjakan'}</button></td>
+    <td><button data-act="del" data-id="${o.id}" class="rounded px-2 py-1 text-xs font-bold text-red-700 border border-red-300">Hapus</button></td></tr>`;}).join('');
+}
+$('#tbody').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;const o=S.orders[b.dataset.id];if(!o)return;
+  if(b.dataset.act==='toggle')put('orders/'+b.dataset.id,{...o,status:o.status==='done'?'pending':'done'});
+  else if(b.dataset.act==='price'){const v=prompt(`Total harga Paket Bulk untuk ${o.nama} (${o.qty} cup), dalam Rupiah:`,o.total||'');if(v!==null&&!isNaN(+v))put('orders/'+b.dataset.id,{...o,total:Math.max(0,+v)});}
+  else if(b.dataset.act==='del'&&confirm(`Hapus pesanan ${o.inv} atas nama ${o.nama}?`))put('orders/'+b.dataset.id,null);
+});
+$('#tbody').addEventListener('change',e=>{const s=e.target.closest('select[data-act=pic]');if(!s)return;const o=S.orders[s.dataset.id];if(o)put('orders/'+s.dataset.id,{...o,pic:s.value});});
+$('#csvBtn').onclick=()=>{
+  const L=filtered().reverse(),rev=L.reduce((a,o)=>a+o.total,0),cups=L.reduce((a,o)=>a+o.qty,0),hpp=calcHpp(L),q=v=>`"${String(v).replace(/"/g,'""')}"`;
+  const rows=[['Invoice','Waktu','Batch PO','Nama','WhatsApp','Varian','Tingkat Manis','Qty','Pengiriman','Alamat','Total Bayar','PIC','Status']];
+  L.forEach(o=>rows.push([o.inv,new Date(o.ts).toLocaleString('id-ID'),'PO #'+o.poNo,o.nama,"'"+o.wa,o.varian,o.manis,o.qty,o.kirim,o.alamat,o.total,o.pic||'',o.status==='done'?'Selesai':'Perlu Dikerjakan']));
+  rows.push([],['RINGKASAN (sesuai filter aktif)'],['Total Cup Terjual',cups],['Total Penjualan (Omzet)',rev],['Total Modal (HPP)',Math.round(hpp)],['Profit Bersih',Math.round(rev-hpp)],['Margin (%)',rev?((rev-hpp)/rev*100).toFixed(1):0]);
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+rows.map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));
+  a.download='Laporan-MangoCrave.csv';a.click();URL.revokeObjectURL(a.href);
+};
+
+/* ---------- Init ---------- */
+onChange(()=>{renderBadge();renderDash();});
+ensureDefault();renderBadge();calc();initCloud();
+</script>
+</body>
+</html>
